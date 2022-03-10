@@ -1,7 +1,7 @@
-package com.master.driver;
+package com.master.driver.web.local;
 
-import com.master.driver.manager.ChromeDriverManager;
-import com.master.driver.manager.FireFoxDriverManager;
+import com.master.driver.manager.web.local.ChromeDriverManager;
+import com.master.driver.manager.web.local.FireFoxDriverManager;
 import com.master.enums.BrowserType;
 import org.openqa.selenium.WebDriver;
 

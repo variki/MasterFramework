@@ -1,4 +1,4 @@
-package com.master.config.Converters;
+package com.master.config.converters;
 
 import com.master.enums.BrowserType;
 import org.aeonbits.owner.Converter;
