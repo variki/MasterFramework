@@ -5,13 +5,20 @@ import com.master.driver.manager.web.remote.selenoid.SelenoidFirefoxManager;
 import com.master.enums.BrowserType;
 import org.openqa.selenium.WebDriver;
 
-public class SelenoidFactory {
-    private SelenoidFactory(){
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Supplier;
 
+public final class SelenoidFactory {
+    private SelenoidFactory(){    }
+    private static final Map<BrowserType, Supplier<WebDriver>> MAP = new EnumMap<>(BrowserType.class);
+    static {
+        MAP.put(BrowserType.CHROME,SelenoidChromeManager::getDriver);
+        MAP.put(BrowserType.FIREFOX,SelenoidFirefoxManager::getDriver);
     }
 
     public static WebDriver getDriver(BrowserType browserType){
-        return BrowserType.CHROME == browserType ? SelenoidChromeManager.getDriver() : SelenoidFirefoxManager.getDriver();
+        return MAP.get(browserType).get();
 
     }
 }
