@@ -20,4 +20,9 @@ public interface BrowserStackConfig extends Config {
     @DefaultValue("https://${username}:${key}@hub-cloud.browserstack.com/wd/hub")
     @ConverterClass(StringToURLConverter.class)
     URL browserStackURL();
+
+
+    @DefaultValue("https://${username}:${key}@hub-cloud.browserstack.com/wd/hub")
+    @ConverterClass(StringToURLConverter.class)
+    URL sauceLabsURL();
 }

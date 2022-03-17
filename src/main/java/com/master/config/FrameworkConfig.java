@@ -1,9 +1,6 @@
 package com.master.config;
 
-import com.master.config.converters.StringToBrowserTypeConverter;
-import com.master.config.converters.StringToRemoteRunModeConverter;
-import com.master.config.converters.StringToRunModeConverter;
-import com.master.config.converters.StringToURLConverter;
+import com.master.config.converters.*;
 import com.master.enums.BrowserType;
 import com.master.enums.RemoteRunMode;
 import com.master.enums.RunMode;
@@ -32,10 +29,28 @@ public interface FrameworkConfig extends Config {
     @ConverterClass(StringToRemoteRunModeConverter.class)
     RemoteRunMode remoteRunMode();
 
+    @Key("seleniumGridURL")
     @ConverterClass(StringToURLConverter.class)
     URL seleniumGridURL();
 
+    @Key("selenoidURL")
     @ConverterClass(StringToURLConverter.class)
     URL selenoidURL();
+
+    @Key("mobilePlatform")
+    @ConverterClass(StringToMobilePlatformConverter.class)
+    RunMode mobilePlatform();
+
+    @Key("remotePlatform")
+    @ConverterClass(StringToRemotePlatformConverter.class)
+    RunMode remotePlatform();
+
+    @Key("localAppiumServerURL")
+    @ConverterClass(StringToURLConverter.class)
+    URL localAppiumServerURL();
+
+
+
+
 
 }
