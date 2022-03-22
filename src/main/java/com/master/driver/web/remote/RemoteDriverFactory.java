@@ -1,7 +1,7 @@
 package com.master.driver.web.remote;
 
 import com.master.enums.BrowserType;
-import com.master.enums.RemoteRunMode;
+import com.master.enums.WebRemoteRunMode;
 import org.openqa.selenium.WebDriver;
 
 import java.util.EnumMap;
@@ -13,14 +13,14 @@ public final class RemoteDriverFactory {
     private RemoteDriverFactory(){
 
     }
-    private static final Map<RemoteRunMode, Function<BrowserType,WebDriver>> MAP = new EnumMap<>(RemoteRunMode.class);
+    private static final Map<WebRemoteRunMode, Function<BrowserType,WebDriver>> MAP = new EnumMap<>(WebRemoteRunMode.class);
     static {
-        MAP.put(RemoteRunMode.SELENIUM, SeleniumGridFactory::getDriver);
-        MAP.put(RemoteRunMode.SELENOID,SelenoidFactory::getDriver);
-        MAP.put(RemoteRunMode.BROWSER_STACK,BrowserStackFactory::getDriver);
+        MAP.put(WebRemoteRunMode.SELENIUM, SeleniumGridFactory::getDriver);
+        MAP.put(WebRemoteRunMode.SELENOID,SelenoidFactory::getDriver);
+        MAP.put(WebRemoteRunMode.BROWSER_STACK,BrowserStackFactory::getDriver);
     }
 
-    public static WebDriver getDriver(RemoteRunMode remoteRunMode, BrowserType browserType) {
+    public static WebDriver getDriver(WebRemoteRunMode remoteRunMode, BrowserType browserType) {
 
         return MAP.get(remoteRunMode).apply(browserType);
     }

@@ -10,13 +10,15 @@ public class webBase {
     @BeforeMethod
     public void setUpDriver()
     {
-       driver = Driver.initDriver();
-        driver.get("https://google.co.in");
+       driver = Driver.initDriverforWeb();
+       // driver.get("https://google.co.in");
 
     }
 
     @AfterMethod
     public void quitDriver(){
-        driver.quit();
+
+        //if(driver != null)
+           driver.quit();
     }
 }

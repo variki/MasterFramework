@@ -1,6 +1,6 @@
 package com.master.enums;
 
-public enum RemoteRunMode {
+public enum WebRemoteRunMode {
     SELENIUM,
     SELENOID,
     BROWSER_STACK

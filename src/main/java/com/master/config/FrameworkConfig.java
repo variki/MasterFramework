@@ -1,9 +1,7 @@
 package com.master.config;
 
 import com.master.config.converters.*;
-import com.master.enums.BrowserType;
-import com.master.enums.RemoteRunMode;
-import com.master.enums.RunMode;
+import com.master.enums.*;
 import org.aeonbits.owner.Config;
 
 import java.net.URL;
@@ -25,9 +23,9 @@ public interface FrameworkConfig extends Config {
     @ConverterClass(StringToRunModeConverter.class)
     RunMode runMode();
 
-    @Key("remoteRunMode")
+    @Key("webRemoteRunMode")
     @ConverterClass(StringToRemoteRunModeConverter.class)
-    RemoteRunMode remoteRunMode();
+    WebRemoteRunMode webRemoteRunMode();
 
     @Key("seleniumGridURL")
     @ConverterClass(StringToURLConverter.class)
@@ -39,11 +37,11 @@ public interface FrameworkConfig extends Config {
 
     @Key("mobilePlatform")
     @ConverterClass(StringToMobilePlatformConverter.class)
-    RunMode mobilePlatform();
+    MobilePlatformType mobilePlatform();
 
-    @Key("remotePlatform")
+    @Key("mobileRemotePlatform")
     @ConverterClass(StringToRemotePlatformConverter.class)
-    RunMode remotePlatform();
+    MobileRemotePlatform mobileRemotePlatform();
 
     @Key("localAppiumServerURL")
     @ConverterClass(StringToURLConverter.class)
