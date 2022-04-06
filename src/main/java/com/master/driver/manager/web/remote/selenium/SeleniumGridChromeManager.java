@@ -14,6 +14,8 @@ public final class SeleniumGridChromeManager {
     public static WebDriver getDriver() {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setBrowserName(BrowserType.CHROME);
+
+        System.out.println("Grid URL : "+ConfigFactory.getConfig().seleniumGridURL());
         return new RemoteWebDriver(ConfigFactory.getConfig().seleniumGridURL(),capabilities);
     }
 }

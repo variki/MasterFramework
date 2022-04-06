@@ -10,7 +10,8 @@ import java.net.URL;
 @Config.Sources({
         "system:properties",
         "system:env",
-        "file:${user.dir}/src/test/resources/config.properties"
+        "file:${user.dir}/src/test/resources/config.properties",
+        "classpath:${user.dir}/target/test-classes/config.properties"
 })
 
 public interface FrameworkConfig extends Config {
@@ -20,15 +21,17 @@ public interface FrameworkConfig extends Config {
     BrowserType browser();
 
     @Key("runMode")
+    @DefaultValue("remote")
     @ConverterClass(StringToRunModeConverter.class)
     RunMode runMode();
 
     @Key("webRemoteRunMode")
+    @DefaultValue("SELENIUM")
     @ConverterClass(StringToRemoteRunModeConverter.class)
     WebRemoteRunMode webRemoteRunMode();
 
     @Key("seleniumGridURL")
-    @ConverterClass(StringToURLConverter.class)
+    @ConverterClass(StringToGridURLConverter.class)
     URL seleniumGridURL();
 
     @Key("selenoidURL")

@@ -21,7 +21,8 @@ public final class RemoteDriverFactory {
     }
 
     public static WebDriver getDriver(WebRemoteRunMode remoteRunMode, BrowserType browserType) {
-
+        System.out.println(remoteRunMode+ " and "+ browserType.toString());
+        System.out.println(MAP);
         return MAP.get(remoteRunMode).apply(browserType);
     }
 

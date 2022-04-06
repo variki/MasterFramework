@@ -1,10 +1,8 @@
 package com.master.driver;
 
 import com.master.config.factory.ConfigFactory;
-import com.master.driver.entity.DriverData;
-import com.master.driver.mobile.remote.MobileRemoteDriverFactory;
-import com.master.driver.web.local.LocalDriverFactory;
-import com.master.driver.web.remote.RemoteDriverFactory;
+import com.master.driver.entity.MobileDriverData;
+import com.master.driver.entity.WebDriverData;
 import org.openqa.selenium.WebDriver;
 
 public final class Driver {
@@ -18,7 +16,7 @@ public final class Driver {
        /* driver = MobileRemoteDriverFactory.getDriver(ConfigFactory.getConfig().mobileRemotePlatform(),ConfigFactory.getConfig().mobilePlatform());
                 //RemoteDriverFactory.getDriver(ConfigFactory.getConfig().remoteRunMode(),ConfigFactory.getConfig().browser());
                 //LocalDriverFactory.getDriver(ConfigFactory.getConfig().browser());*/
-       DriverData driverData = DriverData.builder()
+       WebDriverData driverData = WebDriverData.builder()
                 .runMode(ConfigFactory.getConfig().runMode())
                 .browserType(ConfigFactory.getConfig().browser())
                 .webRemoteRunMode(ConfigFactory.getConfig().webRemoteRunMode())
@@ -29,7 +27,7 @@ public final class Driver {
     public static WebDriver initDriverforMobile()
     {
 
-        DriverData driverData = DriverData.builder()
+        MobileDriverData driverData = MobileDriverData.builder()
                 .runMode(ConfigFactory.getConfig().runMode())
                 .mobilePlatformType(ConfigFactory.getConfig().mobilePlatform())
                 .mobileRemotePlatform(ConfigFactory.getConfig().mobileRemotePlatform())
