@@ -1,0 +1,5 @@
+com\master\tests\demoTest.class
+com\duckduckgo\tests\SearchTest.class
+com\tours\tests\App.class
+com\master\tests\webBase.class
+com\tours\tests\BookFlightTicket.class
