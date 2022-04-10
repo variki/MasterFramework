@@ -9,20 +9,30 @@ import com.master.driver.web.remote.RemoteDriverFactory;
 import com.master.enums.RunMode;
 import org.openqa.selenium.WebDriver;
 
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
 public final class DriverFactory {
 
     private DriverFactory(){}
+    private static final Map<RunMode, Supplier<IWebDriver>> WEB = new EnumMap<>(RunMode.class);
+    private static final Map<RunMode, Supplier<IMobileDriver>> MOBILE = new EnumMap<>(RunMode.class);
 
-    public static WebDriver getDriverforWeb(WebDriverData webDriverData){
-         return webDriverData.getRunMode() == RunMode.LOCAL
-                 ? new LocalWebDriverImpl().getDriver(webDriverData)
-                 : new RemoteWebDriverImpl().getDriver(webDriverData);
+    static {
+        WEB.put(RunMode.LOCAL,LocalWebDriverImpl::new);
+        WEB.put(RunMode.REMOTE,RemoteWebDriverImpl::new);
+        MOBILE.put(RunMode.LOCAL,LocalMobileDriverImpl::new);
+        MOBILE.put(RunMode.REMOTE,RemoteMobileDriverImpl::new);
+
     }
 
-    public static WebDriver getDriverforMobile(MobileDriverData mobileDriverData){
-        return mobileDriverData.getRunMode() == RunMode.LOCAL
-        ? new LocalMobileDriverImpl().getDriver(mobileDriverData)
-                : new RemoteMobileDriverImpl().getDriver(mobileDriverData);
+    public static IWebDriver getDriverforWeb(RunMode runMode){
+         return WEB.get(runMode).get();
+    }
+
+    public static IMobileDriver getDriverforMobile(RunMode runMode){
+        return MOBILE.get(runMode).get();
 
     }
 }
