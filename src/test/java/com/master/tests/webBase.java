@@ -1,6 +1,7 @@
 package com.master.tests;
 
 import com.master.driver.Driver;
+import com.master.driver.DriverManager;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -12,8 +13,9 @@ public class webBase {
     @BeforeTest
     public void setUpDriver()
     {
-       driver = Driver.initDriverforWeb();
+       //driver = DriverManager.getDriver();
        // driver.get("https://google.co.in");
+        Driver.initDriverforWeb();
 
     }
 
@@ -21,7 +23,8 @@ public class webBase {
     public void quitDriver(){
 
         //if(driver != null)
-           driver.quit();
+          // driver.quit();
+        Driver.quitDriver();
     }
 
     public static WebDriver getDriver(){

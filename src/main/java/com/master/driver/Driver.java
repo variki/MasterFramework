@@ -5,34 +5,33 @@ import com.master.driver.entity.MobileDriverData;
 import com.master.driver.entity.WebDriverData;
 import org.openqa.selenium.WebDriver;
 
+import java.util.Objects;
+
 public final class Driver {
 
-    static WebDriver driver = null;
-
+    private static WebDriver driver;
     private Driver(){}
 
-    public static WebDriver initDriverforWeb()
+    public static void initDriverforWeb()
     {
-
-       WebDriverData driverData = WebDriverData.builder()
-                .browserType(ConfigFactory.getConfig().browser())
-                .webRemoteRunMode(ConfigFactory.getConfig().webRemoteRunMode())
-                .build();
-        return DriverFactory.getDriverforWeb(ConfigFactory.getConfig().runMode()).getDriver(driverData);
+        if(Objects.isNull(DriverManager.getDriver())) {
+            WebDriverData driverData = new WebDriverData(ConfigFactory.getConfig().browser(), ConfigFactory.getConfig().webRemoteRunMode());
+            driver = DriverFactory.getDriverforWeb(ConfigFactory.getConfig().runMode()).getDriver(driverData);
+            DriverManager.setDriver(driver);
+        }
     }
 
-    public static WebDriver initDriverforMobile()
+    public static void initDriverforMobile()
     {
-
-        MobileDriverData driverData = MobileDriverData.builder()
-                .mobilePlatformType(ConfigFactory.getConfig().mobilePlatform())
-                .mobileRemotePlatform(ConfigFactory.getConfig().mobileRemotePlatform())
-                .build();
-        return DriverFactory.getDriverforMobile(ConfigFactory.getConfig().runMode()).getDriver(driverData);
+        if(Objects.isNull(DriverManager.getDriver())) {
+            MobileDriverData driverData = new MobileDriverData(ConfigFactory.getConfig().mobilePlatform(), ConfigFactory.getConfig().mobileRemotePlatform());
+            driver = DriverFactory.getDriverforMobile(ConfigFactory.getConfig().runMode()).getDriver(driverData);
+            DriverManager.setDriver(driver);
+        }
     }
 
     public static void quitDriver(){
-
+     DriverManager.getDriver().quit();
     }
 
 }
