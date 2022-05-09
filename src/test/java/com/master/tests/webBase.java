@@ -13,8 +13,7 @@ public class webBase {
     @BeforeTest
     public void setUpDriver()
     {
-       //driver = DriverManager.getDriver();
-       // driver.get("https://google.co.in");
+
         Driver.initDriverforWeb();
 
     }
@@ -22,8 +21,8 @@ public class webBase {
     @AfterTest
     public void quitDriver(){
 
-        //if(driver != null)
-          // driver.quit();
+//        if(driver != null)
+//           driver.quit();
         Driver.quitDriver();
     }
 
