@@ -2,5 +2,11 @@
   "id": 4,
   "first_name": "Latha",
   "last_name": "Renganathan",
-  "email": "latha@gmail.com"
+  "email": "latha@gmail.com",
+  "jobs": ["Testing","Trainer"],
+  "favfoods": {
+    "breakfast": "Idly",
+    "lunch": "rice",
+    "dinner": ["chapathi", "milk"]
+  }
 }
