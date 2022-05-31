@@ -1,11 +1,14 @@
 package com.api.tests;
 
 import com.api.pojo.Employee;
+import com.api.pojo.FavFoods;
 import com.github.javafaker.Faker;
 import io.restassured.http.ContentType;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.File;
@@ -18,7 +21,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 
-public class AddEmployees {
+public class AddEmployeesTest {
 
     @Test
     public void getEmployee(){
@@ -98,10 +101,10 @@ public class AddEmployees {
         jsonObject.put("fname",new Faker().name().firstName());
         jsonObject.put("lname",new Faker().name().lastName());
         jsonObject.put("email",jsonObject.get("fname")+"@gmail.com");
-        jsonObject.accumulate("email",jsonObject.get("lname")+"@gmail.com");
-        jsonObject.append("email",jsonObject.get("fname") +""+ jsonObject.get("lname")+"@gmail.com");
-        jsonObject.putOpt("email",null);
-        jsonObject.putOnce("email","dummy");
+//        jsonObject.accumulate("email",jsonObject.get("lname")+"@gmail.com");
+//        jsonObject.append("email",jsonObject.get("fname") +""+ jsonObject.get("lname")+"@gmail.com");
+//        jsonObject.putOpt("email",null);
+//        jsonObject.putOnce("email","dummy");
 
         JSONArray jsonArray = new JSONArray();
         jsonArray.put("Tester");
@@ -125,7 +128,21 @@ public class AddEmployees {
                 .log()
                 .all()
                 .post("http://localhost:3000/employees");
-        response.prettyPrint();
+        System.out.println(response.getStatusCode());
+        Assert.assertEquals(response.getStatusCode(),201);
+        Assert.assertEquals(response.getHeader("Content-Type"),"application/json; charset=utf-8");
+        System.out.println(response.jsonPath().getString("email"));
+        System.out.println(response.jsonPath().getList("favfood.dinner"));
+
+        Employee as = response.as(Employee.class);
+        System.out.println(as.getFName());
+
+        response.then().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schema.json"));
+
+        response.then().body(JsonSchemaValidator.matchesJsonSchema(new File(System.getProperty("user.dir")+"/src/test/resources/Schema/schema.json")));
+
+
+
 
 
     }
@@ -133,11 +150,26 @@ public class AddEmployees {
     @Test
     public void addEmployeeUsingPOJO(){
 
-        Employee employee = new Employee(134,"Thala","Pathy","thala@gmail.com");
-        given().header("Content-Type",ContentType.JSON)
+        Employee employee = new Employee(131,"Thala","Pathy","thala@gmail.com",Arrays.asList("Tester","Trainer"),new FavFoods("idly","rice",Arrays.asList("Naan","Butter Masala")));
+        Response response = given().header("Content-Type", ContentType.JSON)
                 .body(employee)
                 .log()
                 .all()
                 .post("http://localhost:3000/employees");
+        response.prettyPrint();
+
+    }
+
+    @Test
+    public void addEmployeeUsingPOJOJackson(){
+
+        Employee employee = new Employee(131,null,"","thala@gmail.com",Arrays.asList("Tester","Trainer"),new FavFoods("idly","rice",Arrays.asList("Naan","Butter Masala")));
+        Response response = given().header("Content-Type", ContentType.JSON)
+                .body(employee)
+                .log()
+                .all()
+                .post("http://localhost:3000/employees");
+        response.prettyPrint();
+
     }
 }
