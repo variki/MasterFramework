@@ -24,8 +24,9 @@ import static io.restassured.RestAssured.*;
 public class AddEmployeesTest {
 
     @Test
-    public void getEmployee(){
+    public void getEmployee() throws IOException {
         Response response = given().get("http://localhost:3000/employees");
+        Files.write(Paths.get(System.getProperty("user.dir")+"/response.json"),response.asByteArray());
         response.prettyPrint();
     }
 
